@@ -249,3 +249,4 @@ final class StatsManager: ObservableObject {
         }
     }
 }
+

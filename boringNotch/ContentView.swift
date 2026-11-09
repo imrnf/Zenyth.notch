@@ -25,6 +25,7 @@ struct ContentView: View {
     @ObservedObject var volumeManager = VolumeManager.shared
     @ObservedObject var privacyManager = PrivacyIndicatorManager.shared
     @ObservedObject var dndManager = DoNotDisturbManager.shared
+    @ObservedObject var timerManager = TimerManager.shared
     @State private var hoverTask: Task<Void, Never>?
     @State private var isHovering: Bool = false
     @State private var anyDropDebounceTask: Task<Void, Never>?
@@ -85,6 +86,9 @@ struct ContentView: View {
             }
             if dndManager.isDoNotDisturbActive && Defaults[.enableDoNotDisturbIndicator] {
                 chinWidth += 24
+            }
+            if timerManager.isTimerActive {
+                chinWidth += 60
             }
         }
 
@@ -312,6 +316,9 @@ struct ContentView: View {
                                if dndManager.isDoNotDisturbActive && Defaults[.enableDoNotDisturbIndicator] {
                                    DoNotDisturbLiveActivity()
                                }
+                               if timerManager.isTimerActive {
+                                   TimerLiveActivity()
+                               }
                                Rectangle().fill(.clear).frame(width: vm.closedNotchSize.width - 20, height: vm.effectiveClosedNotchHeight)
                                if privacyManager.hasAnyIndicator {
                                    PrivacyLiveActivity()
@@ -370,6 +377,10 @@ struct ContentView: View {
                         ShelfView()
                     case .stats:
                         NotchStatsView()
+                    case .timer:
+                        NotchTimerView()
+                    case .clipboard:
+                        NotchClipboardView()
                     }
                 }
                 .transition(
@@ -501,6 +512,9 @@ struct ContentView: View {
                 alignment: .center
             )
 
+            if timerManager.isTimerActive {
+                TimerLiveActivity()
+            }
             if privacyManager.hasAnyIndicator {
                 PrivacyLiveActivity()
             }

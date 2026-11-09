@@ -190,3 +190,4 @@ struct SparklineView: View {
         }
     }
 }
+

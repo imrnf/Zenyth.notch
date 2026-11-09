@@ -109,6 +109,39 @@ extension EventModel {
         }
         return URL(string: "ical://ekevent\(date)/\(id)?method=show&options=more")
     }
+
+    var conferenceURL: URL? {
+        if let url = self.url, isConference(url) {
+            return url
+        }
+        if let location = self.location, let u = extractURL(from: location) {
+            return u
+        }
+        if let notes = self.notes, let u = extractURL(from: notes) {
+            return u
+        }
+        return nil
+    }
+
+    private func isConference(_ url: URL) -> Bool {
+        let str = url.absoluteString.lowercased()
+        return str.contains("zoom.us/j/") ||
+               str.contains("meet.google.com/") ||
+               str.contains("teams.microsoft.com/") ||
+               str.contains("webex.com/") ||
+               str.contains("facetime.apple.com/")
+    }
+
+    private func extractURL(from text: String) -> URL? {
+        let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        let matches = detector?.matches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count))
+        for match in matches ?? [] {
+            if let url = match.url, isConference(url) {
+                return url
+            }
+        }
+        return nil
+    }
 }
 
 struct Participant: Hashable {

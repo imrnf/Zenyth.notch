@@ -417,6 +417,24 @@ struct EventListView: View {
                         }
                     }
                     Spacer(minLength: 0)
+                    if let conferenceURL = event.conferenceURL {
+                        Button(action: {
+                            NSWorkspace.shared.open(conferenceURL)
+                        }) {
+                            HStack(spacing: 3) {
+                                Image(systemName: "video.fill")
+                                Text("Join")
+                            }
+                            .font(.system(size: 9, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 3)
+                            .background(Color.green.opacity(0.85))
+                            .clipShape(Capsule())
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .help("Join Video Meeting")
+                    }
                     VStack(alignment: .trailing, spacing: 4) {
                         if event.isAllDay {
                             Text("All-day")
