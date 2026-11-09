@@ -130,6 +130,12 @@ extension MediaControllerType {
             return "Connects directly to the Apple Music app."
         case .youtubeMusic:
             return "Requires a third-party client with API plugin enabled."
+        case .tidal:
+            return "Connects directly to the Tidal desktop app."
+        case .cider:
+            return "Connects to Cider client via local API socket."
+        case .amazonMusic:
+            return "Connects directly to the Amazon Music app."
         }
     }
 }
