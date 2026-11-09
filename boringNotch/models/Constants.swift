@@ -118,6 +118,10 @@ extension Defaults.Keys {
     static let playerColorTinting = Key<Bool>("playerColorTinting", default: true)
     static let useMusicVisualizer = Key<Bool>("useMusicVisualizer", default: true)
     static let useWaveformScrubber = Key<Bool>("useWaveformScrubber", default: true)
+    static let enableCameraDetection = Key<Bool>("enableCameraDetection", default: true)
+    static let enableMicrophoneDetection = Key<Bool>("enableMicrophoneDetection", default: true)
+    static let enableScreenRecordingDetection = Key<Bool>("enableScreenRecordingDetection", default: true)
+    static let enableDoNotDisturbIndicator = Key<Bool>("enableDoNotDisturbIndicator", default: true)
     static let customVisualizers = Key<[CustomVisualizer]>("customVisualizers", default: [])
     static let selectedVisualizer = Key<CustomVisualizer?>("selectedVisualizer", default: nil)
     

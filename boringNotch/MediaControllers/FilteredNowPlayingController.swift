@@ -325,3 +325,4 @@ class FilteredNowPlayingController: ObservableObject, MediaControllerProtocol {
         self.playbackState = newPlaybackState
     }
 }
+

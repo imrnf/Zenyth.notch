@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		880020022D986B1F00000001 /* CameraMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880020012D986B1F00000001 /* CameraMonitor.swift */; };
+		880020042D986B1F00000001 /* MicrophoneMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880020032D986B1F00000001 /* MicrophoneMonitor.swift */; };
+		880020062D986B1F00000001 /* ScreenRecordingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880020052D986B1F00000001 /* ScreenRecordingManager.swift */; };
+		880020082D986B1F00000001 /* PrivacyIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880020072D986B1F00000001 /* PrivacyIndicatorManager.swift */; };
+		8800200A2D986B1F00000001 /* DoNotDisturbManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880020092D986B1F00000001 /* DoNotDisturbManager.swift */; };
+		8800200C2D986B1F00000001 /* PrivacyLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8800200B2D986B1F00000001 /* PrivacyLiveActivity.swift */; };
+		8800200E2D986B1F00000001 /* DoNotDisturbLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8800200D2D986B1F00000001 /* DoNotDisturbLiveActivity.swift */; };
 		880010022D986B1F00000001 /* FilteredNowPlayingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880010012D986B1F00000001 /* FilteredNowPlayingController.swift */; };
 		880010042D986B1F00000001 /* AmazonMusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880010032D986B1F00000001 /* AmazonMusicController.swift */; };
 		880010062D986B1F00000001 /* CiderTokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880010052D986B1F00000001 /* CiderTokenStore.swift */; };
@@ -190,6 +197,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		880020012D986B1F00000001 /* CameraMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMonitor.swift; sourceTree = "<group>"; };
+		880020032D986B1F00000001 /* MicrophoneMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophoneMonitor.swift; sourceTree = "<group>"; };
+		880020052D986B1F00000001 /* ScreenRecordingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenRecordingManager.swift; sourceTree = "<group>"; };
+		880020072D986B1F00000001 /* PrivacyIndicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyIndicatorManager.swift; sourceTree = "<group>"; };
+		880020092D986B1F00000001 /* DoNotDisturbManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoNotDisturbManager.swift; sourceTree = "<group>"; };
+		8800200B2D986B1F00000001 /* PrivacyLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyLiveActivity.swift; sourceTree = "<group>"; };
+		8800200D2D986B1F00000001 /* DoNotDisturbLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoNotDisturbLiveActivity.swift; sourceTree = "<group>"; };
 		880010012D986B1F00000001 /* FilteredNowPlayingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredNowPlayingController.swift; sourceTree = "<group>"; };
 		880010032D986B1F00000001 /* AmazonMusicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmazonMusicController.swift; sourceTree = "<group>"; };
 		880010052D986B1F00000001 /* CiderTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CiderTokenStore.swift; sourceTree = "<group>"; };
@@ -542,6 +556,11 @@
 				B1F0A0012E60000100000001 /* BrightnessManager.swift */,
 				59D8C23B2E589FAA00147B33 /* VolumeManager.swift */,
 				8800100B2D986B1F00000001 /* AudioRouteManager.swift */,
+				880020012D986B1F00000001 /* CameraMonitor.swift */,
+				880020032D986B1F00000001 /* MicrophoneMonitor.swift */,
+				880020052D986B1F00000001 /* ScreenRecordingManager.swift */,
+				880020072D986B1F00000001 /* PrivacyIndicatorManager.swift */,
+				880020092D986B1F00000001 /* DoNotDisturbManager.swift */,
 			);
 			path = managers;
 			sourceTree = "<group>";
@@ -764,6 +783,8 @@
 				B1D365CF2C6A9A6C0047BDBC /* SystemEventIndicatorModifier.swift */,
 				14E9FEA92C70BF610062E83F /* DownloadView.swift */,
 				B172AABF2C95DA0B001623F1 /* InlineHUD.swift */,
+				8800200B2D986B1F00000001 /* PrivacyLiveActivity.swift */,
+				8800200D2D986B1F00000001 /* DoNotDisturbLiveActivity.swift */,
 			);
 			path = "Live activities";
 			sourceTree = "<group>";
@@ -932,6 +953,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				880020022D986B1F00000001 /* CameraMonitor.swift in Sources */,
+				880020042D986B1F00000001 /* MicrophoneMonitor.swift in Sources */,
+				880020062D986B1F00000001 /* ScreenRecordingManager.swift in Sources */,
+				880020082D986B1F00000001 /* PrivacyIndicatorManager.swift in Sources */,
+				8800200A2D986B1F00000001 /* DoNotDisturbManager.swift in Sources */,
+				8800200C2D986B1F00000001 /* PrivacyLiveActivity.swift in Sources */,
+				8800200E2D986B1F00000001 /* DoNotDisturbLiveActivity.swift in Sources */,
 				880010022D986B1F00000001 /* FilteredNowPlayingController.swift in Sources */,
 				880010042D986B1F00000001 /* AmazonMusicController.swift in Sources */,
 				880010062D986B1F00000001 /* CiderTokenStore.swift in Sources */,

@@ -113,3 +113,4 @@ struct CiderFavoriting: Sendable {
 private struct CiderPlaybackStatusResponse: Codable {
     let inFavorites: Bool?
 }
+

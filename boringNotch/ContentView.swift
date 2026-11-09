@@ -23,6 +23,8 @@ struct ContentView: View {
     @ObservedObject var batteryModel = BatteryStatusViewModel.shared
     @ObservedObject var brightnessManager = BrightnessManager.shared
     @ObservedObject var volumeManager = VolumeManager.shared
+    @ObservedObject var privacyManager = PrivacyIndicatorManager.shared
+    @ObservedObject var dndManager = DoNotDisturbManager.shared
     @State private var hoverTask: Task<Void, Never>?
     @State private var isHovering: Bool = false
     @State private var anyDropDebounceTask: Task<Void, Never>?
@@ -75,6 +77,15 @@ struct ContentView: View {
             && !vm.hideOnClosed
         {
             chinWidth += (2 * max(0, vm.effectiveClosedNotchHeight - 12) + 20)
+        }
+
+        if vm.notchState == .closed {
+            if privacyManager.hasAnyIndicator {
+                chinWidth += 32
+            }
+            if dndManager.isDoNotDisturbActive && Defaults[.enableDoNotDisturbIndicator] {
+                chinWidth += 24
+            }
         }
 
         return chinWidth
@@ -297,7 +308,15 @@ struct ContentView: View {
                                .frame(height: max(24, vm.effectiveClosedNotchHeight))
                                .opacity(gestureProgress != 0 ? 1.0 - min(abs(gestureProgress) * 0.1, 0.3) : 1.0)
                        } else {
-                           Rectangle().fill(.clear).frame(width: vm.closedNotchSize.width - 20, height: vm.effectiveClosedNotchHeight)
+                           HStack(spacing: 4) {
+                               if dndManager.isDoNotDisturbActive && Defaults[.enableDoNotDisturbIndicator] {
+                                   DoNotDisturbLiveActivity()
+                               }
+                               Rectangle().fill(.clear).frame(width: vm.closedNotchSize.width - 20, height: vm.effectiveClosedNotchHeight)
+                               if privacyManager.hasAnyIndicator {
+                                   PrivacyLiveActivity()
+                               }
+                           }
                        }
 
                       if coordinator.sneakPeek.show {
@@ -479,6 +498,10 @@ struct ContentView: View {
                 ),
                 alignment: .center
             )
+
+            if privacyManager.hasAnyIndicator {
+                PrivacyLiveActivity()
+            }
         }
         .frame(
             height: vm.effectiveClosedNotchHeight,

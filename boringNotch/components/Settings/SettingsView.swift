@@ -638,6 +638,23 @@ struct Media: View {
                     .font(.caption)
                 }
             }
+
+            Section {
+                Defaults.Toggle(key: .enableCameraDetection) {
+                    Text("Show camera active indicator")
+                }
+                Defaults.Toggle(key: .enableMicrophoneDetection) {
+                    Text("Show microphone active indicator")
+                }
+                Defaults.Toggle(key: .enableScreenRecordingDetection) {
+                    Text("Show screen recording indicator")
+                }
+                Defaults.Toggle(key: .enableDoNotDisturbIndicator) {
+                    Text("Show Focus / Do Not Disturb indicator")
+                }
+            } header: {
+                Text("System & Privacy Live Activities")
+            }
             
             Section {
                 Toggle(

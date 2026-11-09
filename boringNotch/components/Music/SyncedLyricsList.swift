@@ -91,3 +91,4 @@ struct SyncedLyricsList: View {
         return active
     }
 }
+
