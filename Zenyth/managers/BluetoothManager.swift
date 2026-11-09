@@ -245,23 +245,26 @@ public class BluetoothManager: ObservableObject {
         }
 
         // Check device classes
-        if majorClass == kBluetoothDeviceClassMajorAudio {
-            if minorClass == kBluetoothDeviceClassMinorAudioLoudspeaker {
+        let major = Int(majorClass)
+        let minor = Int(minorClass)
+
+        if major == kBluetoothDeviceClassMajorAudio {
+            if minor == kBluetoothDeviceClassMinorAudioLoudspeaker {
                 return "speaker.wave.2"
             }
             return "headphones"
-        } else if majorClass == kBluetoothDeviceClassMajorPeripheral {
-            if (minorClass & kBluetoothDeviceClassMinorPeripheral1Keyboard) != 0 {
+        } else if major == kBluetoothDeviceClassMajorPeripheral {
+            if (minor & kBluetoothDeviceClassMinorPeripheral1Keyboard) != 0 {
                 return "keyboard"
             }
-            if (minorClass & kBluetoothDeviceClassMinorPeripheral1Pointing) != 0 {
+            if (minor & kBluetoothDeviceClassMinorPeripheral1Pointing) != 0 {
                 return "computermouse"
             }
-            if minorClass == kBluetoothDeviceClassMinorPeripheral2Gamepad || minorClass == kBluetoothDeviceClassMinorPeripheral2Joystick {
+            if minor == kBluetoothDeviceClassMinorPeripheral2Gamepad || minor == kBluetoothDeviceClassMinorPeripheral2Joystick {
                 return "gamecontroller"
             }
             return "computermouse"
-        } else if majorClass == kBluetoothDeviceClassMajorPhone {
+        } else if major == kBluetoothDeviceClassMajorPhone {
             return "iphone"
         }
 
@@ -365,3 +368,4 @@ public class BluetoothManager: ObservableObject {
         batteryTimer?.invalidate()
     }
 }
+
