@@ -298,4 +298,37 @@ class ZenythViewCoordinator: ObservableObject {
     func showEmpty() {
         currentView = .home
     }
+
+    // MARK: - Tab Navigation
+    public static let tabOrder: [NotchViews] = [.home, .shelf, .stats, .clipboard]
+
+    func selectNextTab() {
+        guard let currentIndex = Self.tabOrder.firstIndex(of: currentView) else { return }
+        let nextIndex = min(currentIndex + 1, Self.tabOrder.count - 1)
+        if nextIndex != currentIndex {
+            withAnimation(.smooth) {
+                currentView = Self.tabOrder[nextIndex]
+            }
+        }
+    }
+
+    func selectPreviousTab() {
+        guard let currentIndex = Self.tabOrder.firstIndex(of: currentView) else { return }
+        let prevIndex = max(currentIndex - 1, 0)
+        if prevIndex != currentIndex {
+            withAnimation(.smooth) {
+                currentView = Self.tabOrder[prevIndex]
+            }
+        }
+    }
+
+    var canSelectNextTab: Bool {
+        guard let currentIndex = Self.tabOrder.firstIndex(of: currentView) else { return false }
+        return currentIndex < Self.tabOrder.count - 1
+    }
+
+    var canSelectPreviousTab: Bool {
+        guard let currentIndex = Self.tabOrder.firstIndex(of: currentView) else { return false }
+        return currentIndex > 0
+    }
 }

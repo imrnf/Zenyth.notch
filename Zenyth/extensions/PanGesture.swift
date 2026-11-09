@@ -143,3 +143,155 @@ private struct ScrollMonitor: NSViewRepresentable {
         }
     }
 }
+
+// MARK: - Tab Navigation (Trackpad Swipe & Keyboard Arrow Keys)
+
+extension View {
+    func tabNavigation(
+        isEnabled: Bool,
+        onSwipe: @escaping (PanDirection) -> Void,
+        onArrowKey: @escaping (Bool) -> Void
+    ) -> some View {
+        self.background(
+            TabNavigationMonitor(
+                isEnabled: isEnabled,
+                onSwipe: onSwipe,
+                onArrowKey: onArrowKey
+            )
+        )
+    }
+}
+
+private struct TabNavigationMonitor: NSViewRepresentable {
+    let isEnabled: Bool
+    let onSwipe: (PanDirection) -> Void
+    let onArrowKey: (Bool) -> Void
+
+    func makeNSView(context: Context) -> NSView {
+        let view = NSView()
+        context.coordinator.installMonitor(on: view)
+        return view
+    }
+
+    func updateNSView(_ nsView: NSView, context: Context) {
+        context.coordinator.isEnabled = isEnabled
+    }
+
+    static func dismantleNSView(_ nsView: NSView, coordinator: Coordinator) {
+        coordinator.removeMonitor()
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(isEnabled: isEnabled, onSwipe: onSwipe, onArrowKey: onArrowKey)
+    }
+
+    @MainActor
+    final class Coordinator: NSObject {
+        var isEnabled: Bool
+        let onSwipe: (PanDirection) -> Void
+        let onArrowKey: (Bool) -> Void
+
+        private var scrollMonitor: Any?
+        private var keyMonitor: Any?
+        private var accumulatedX: CGFloat = 0
+        private var hasTriggeredInSwipe = false
+        private var resetTask: Task<Void, Never>?
+
+        init(isEnabled: Bool, onSwipe: @escaping (PanDirection) -> Void, onArrowKey: @escaping (Bool) -> Void) {
+            self.isEnabled = isEnabled
+            self.onSwipe = onSwipe
+            self.onArrowKey = onArrowKey
+        }
+
+        func installMonitor(on view: NSView) {
+            removeMonitor()
+
+            // Trackpad two-finger horizontal scroll/swipe
+            scrollMonitor = NSEvent.addLocalMonitorForEvents(matching: [.scrollWheel]) { [weak self, weak view] event in
+                guard let self = self, self.isEnabled, event.window === view?.window else {
+                    return event
+                }
+
+                if event.phase == .ended || event.phase == .cancelled || event.momentumPhase == .ended {
+                    self.accumulatedX = 0
+                    self.hasTriggeredInSwipe = false
+                    self.resetTask?.cancel()
+                    return event
+                }
+
+                let absX = abs(event.scrollingDeltaX)
+                let absY = abs(event.scrollingDeltaY)
+                guard absX >= 1.4 * absY, absX > 0.3 else {
+                    return event
+                }
+
+                let scale: CGFloat = event.hasPreciseScrollingDeltas ? 1 : 4
+                self.accumulatedX += (event.scrollingDeltaX * scale)
+
+                self.scheduleResetTimeout()
+
+                let threshold: CGFloat = 26.0
+                if !self.hasTriggeredInSwipe && abs(self.accumulatedX) >= threshold {
+                    self.hasTriggeredInSwipe = true
+                    if self.accumulatedX < 0 {
+                        // Swiped left (fingers move right-to-left) -> Next Tab
+                        self.onSwipe(.left)
+                    } else {
+                        // Swiped right (fingers move left-to-right) -> Previous Tab
+                        self.onSwipe(.right)
+                    }
+                }
+
+                return event
+            }
+
+            // Keyboard arrow keys (Left Arrow & Right Arrow)
+            keyMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { [weak self, weak view] event in
+                guard let self = self, self.isEnabled, event.window === view?.window else {
+                    return event
+                }
+
+                // Don't intercept if user is typing in a text field or text view
+                if let responder = event.window?.firstResponder,
+                   responder is NSTextView || responder is NSTextField {
+                    return event
+                }
+
+                if event.keyCode == 123 { // Left Arrow
+                    self.onArrowKey(false) // Previous
+                    return nil
+                } else if event.keyCode == 124 { // Right Arrow
+                    self.onArrowKey(true) // Next
+                    return nil
+                }
+
+                return event
+            }
+        }
+
+        private func scheduleResetTimeout() {
+            resetTask?.cancel()
+            resetTask = Task { @MainActor [weak self] in
+                try? await Task.sleep(for: .milliseconds(300))
+                guard let self = self, !Task.isCancelled else { return }
+                self.accumulatedX = 0
+                self.hasTriggeredInSwipe = false
+            }
+        }
+
+        func removeMonitor() {
+            if let m = scrollMonitor {
+                NSEvent.removeMonitor(m)
+                scrollMonitor = nil
+            }
+            if let m = keyMonitor {
+                NSEvent.removeMonitor(m)
+                keyMonitor = nil
+            }
+            resetTask?.cancel()
+            resetTask = nil
+            accumulatedX = 0
+            hasTriggeredInSwipe = false
+        }
+    }
+}

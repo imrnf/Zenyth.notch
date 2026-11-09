@@ -291,8 +291,12 @@ struct GeneralSettings: View {
             }
                 .disabled(!openNotchOnHover)
             if enableGestures {
-                Toggle("Change media with horizontal gestures", isOn: .constant(false))
-                    .disabled(true)
+                Defaults.Toggle(key: .enableTabSwipeGesture) {
+                    Text("Navigate tabs with trackpad swipe or arrow keys")
+                }
+                Defaults.Toggle(key: .showTabArrowButtons) {
+                    Text("Show navigation arrows in tab bar")
+                }
                 Defaults.Toggle(key: .closeGestureEnabled) {
                     Text("Close gesture")
                 }

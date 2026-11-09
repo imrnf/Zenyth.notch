@@ -159,6 +159,32 @@ struct ContentView: View {
                                 handleUpGesture(translation: translation, phase: phase)
                             }
                     }
+                    .conditionalModifier(Defaults[.enableTabSwipeGesture] && Defaults[.enableGestures]) { view in
+                        view
+                            .tabNavigation(
+                                isEnabled: vm.notchState == .open,
+                                onSwipe: { direction in
+                                    if Defaults[.enableHaptics] {
+                                        haptics.toggle()
+                                    }
+                                    if direction == .left {
+                                        coordinator.selectNextTab()
+                                    } else if direction == .right {
+                                        coordinator.selectPreviousTab()
+                                    }
+                                },
+                                onArrowKey: { isNext in
+                                    if Defaults[.enableHaptics] {
+                                        haptics.toggle()
+                                    }
+                                    if isNext {
+                                        coordinator.selectNextTab()
+                                    } else {
+                                        coordinator.selectPreviousTab()
+                                    }
+                                }
+                            )
+                    }
                     .onReceive(NotificationCenter.default.publisher(for: .sharingDidFinish)) { _ in
                         if vm.notchState == .open && !isHovering && !vm.isBatteryPopoverActive {
                             hoverTask?.cancel()
