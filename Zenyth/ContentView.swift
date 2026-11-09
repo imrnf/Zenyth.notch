@@ -397,69 +397,67 @@ struct ContentView: View {
               }
               .zIndex(2)
             if vm.notchState == .open {
-                ZStack(alignment: .bottom) {
-                    VStack(spacing: 0) {
-                        switch coordinator.currentView {
-                        case .home:
-                            NotchHomeView(albumArtNamespace: albumArtNamespace)
-                        case .shelf:
-                            ShelfView()
-                        case .stats:
-                            NotchStatsView()
-                        case .clipboard:
-                            NotchClipboardView()
+                VStack(spacing: 0) {
+                    HStack(spacing: 0) {
+                        // Left Arrow (positioned cleanly to the left of content)
+                        if Defaults[.showTabArrowButtons] {
+                            Button(action: {
+                                coordinator.selectPreviousTab()
+                            }) {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color.white.opacity(coordinator.canSelectPreviousTab ? 0.16 : 0.05))
+                                        .frame(width: 28, height: 28)
+                                    Image(systemName: "chevron.left")
+                                        .font(.system(size: 11, weight: .bold))
+                                        .foregroundStyle(coordinator.canSelectPreviousTab ? Color.white : Color.white.opacity(0.2))
+                                }
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .disabled(!coordinator.canSelectPreviousTab)
+                            .padding(.leading, 8)
+                            .padding(.trailing, 4)
+                        }
+
+                        // Main Content
+                        VStack(spacing: 0) {
+                            switch coordinator.currentView {
+                            case .home:
+                                NotchHomeView(albumArtNamespace: albumArtNamespace)
+                            case .shelf:
+                                ShelfView()
+                            case .stats:
+                                NotchStatsView()
+                            case .clipboard:
+                                NotchClipboardView()
+                            }
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+
+                        // Right Arrow (positioned cleanly to the right of content)
+                        if Defaults[.showTabArrowButtons] {
+                            Button(action: {
+                                coordinator.selectNextTab()
+                            }) {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color.white.opacity(coordinator.canSelectNextTab ? 0.16 : 0.05))
+                                        .frame(width: 28, height: 28)
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 11, weight: .bold))
+                                        .foregroundStyle(coordinator.canSelectNextTab ? Color.white : Color.white.opacity(0.2))
+                                }
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .disabled(!coordinator.canSelectNextTab)
+                            .padding(.trailing, 8)
+                            .padding(.leading, 4)
                         }
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-                    // Side Navigation Arrows (< and >) matching user's design reference
+                    // Page Dots Indicator (cleanly positioned below the content)
                     if Defaults[.showTabArrowButtons] {
-                        HStack {
-                            if coordinator.canSelectPreviousTab {
-                                Button(action: {
-                                    coordinator.selectPreviousTab()
-                                }) {
-                                    ZStack {
-                                        Circle()
-                                            .fill(Color.white.opacity(0.18))
-                                            .frame(width: 30, height: 30)
-                                        Image(systemName: "chevron.left")
-                                            .font(.system(size: 13, weight: .bold))
-                                            .foregroundStyle(.white)
-                                    }
-                                }
-                                .buttonStyle(PlainButtonStyle())
-                                .padding(.leading, 8)
-                                .transition(.opacity.combined(with: .scale(scale: 0.8)))
-                            } else {
-                                Spacer().frame(width: 38)
-                            }
-
-                            Spacer()
-
-                            if coordinator.canSelectNextTab {
-                                Button(action: {
-                                    coordinator.selectNextTab()
-                                }) {
-                                    ZStack {
-                                        Circle()
-                                            .fill(Color.white.opacity(0.18))
-                                            .frame(width: 30, height: 30)
-                                        Image(systemName: "chevron.right")
-                                            .font(.system(size: 13, weight: .bold))
-                                            .foregroundStyle(.white)
-                                    }
-                                }
-                                .buttonStyle(PlainButtonStyle())
-                                .padding(.trailing, 8)
-                                .transition(.opacity.combined(with: .scale(scale: 0.8)))
-                            } else {
-                                Spacer().frame(width: 38)
-                            }
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-
-                        // Bottom Page Dots Indicator
                         HStack(spacing: 5) {
                             ForEach(0..<ZenythViewCoordinator.tabOrder.count, id: \.self) { index in
                                 let tab = ZenythViewCoordinator.tabOrder[index]
@@ -484,7 +482,7 @@ struct ContentView: View {
                             }
                         }
                         .padding(.bottom, 6)
-                        .transition(.opacity)
+                        .padding(.top, 2)
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
