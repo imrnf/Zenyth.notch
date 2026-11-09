@@ -272,6 +272,10 @@ struct MusicControlsView: View {
             HoverButton(icon: "goforward.15", scale: .medium) {
                 MusicManager.shared.skip(seconds: 15)
             }
+        case .outputDevice:
+            AudioOutputButton()
+        case .lyrics:
+            LyricsToggleButton()
         case .none:
             Color.clear.frame(height: 1)
         }
@@ -416,6 +420,54 @@ struct VolumeControlView: View {
     }
 }
 
+// MARK: - Audio Output & Lyrics Buttons
+
+struct AudioOutputButton: View {
+    @State private var showPopover = false
+    @ObservedObject var routeManager = AudioRouteManager.shared
+
+    var body: some View {
+        HoverButton(icon: routeManager.activeDevice?.iconName ?? "speaker.wave.2.fill", scale: .medium) {
+            showPopover.toggle()
+        }
+        .popover(isPresented: $showPopover, arrowEdge: .bottom) {
+            MediaOutputSelectorPopover(dismiss: { showPopover = false })
+        }
+    }
+}
+
+struct LyricsToggleButton: View {
+    @State private var showPopover = false
+    @ObservedObject var musicManager = MusicManager.shared
+
+    var body: some View {
+        HoverButton(icon: "quote.bubble", iconColor: !musicManager.syncedLyrics.isEmpty ? .accentColor : .primary, scale: .medium) {
+            showPopover.toggle()
+        }
+        .popover(isPresented: $showPopover, arrowEdge: .bottom) {
+            VStack(alignment: .leading, spacing: 0) {
+                HStack {
+                    Text("Lyrics")
+                        .font(.headline)
+                    Spacer()
+                    Button("Close") {
+                        showPopover = false
+                    }
+                    .buttonStyle(.plain)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                }
+                .padding(.horizontal, 14)
+                .padding(.top, 12)
+                .padding(.bottom, 6)
+
+                SyncedLyricsList()
+                    .frame(width: 280, height: 260)
+            }
+        }
+    }
+}
+
 // MARK: - Main View
 
 struct NotchHomeView: View {
@@ -545,13 +597,22 @@ struct CustomSlider: View {
             let filledTrackWidth = min(max(progress, 0), 1) * width
 
             ZStack(alignment: .leading) {
-                Rectangle()
-                    .fill(.gray.opacity(0.3))
-                    .frame(height: height)
+                if Defaults[.useWaveformScrubber] {
+                    RealTimeWaveformScrubberView(
+                        color: color,
+                        progress: progress,
+                        minHeight: height,
+                        isPlaying: MusicManager.shared.isPlaying
+                    )
+                } else {
+                    Rectangle()
+                        .fill(.gray.opacity(0.3))
+                        .frame(height: height)
 
-                Rectangle()
-                    .fill(color)
-                    .frame(width: filledTrackWidth, height: height)
+                    Rectangle()
+                        .fill(color)
+                        .frame(width: filledTrackWidth, height: height)
+                }
             }
             .cornerRadius(height / 2)
             .frame(height: 10)

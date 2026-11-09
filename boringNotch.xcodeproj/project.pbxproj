@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		880010022D986B1F00000001 /* FilteredNowPlayingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880010012D986B1F00000001 /* FilteredNowPlayingController.swift */; };
+		880010042D986B1F00000001 /* AmazonMusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880010032D986B1F00000001 /* AmazonMusicController.swift */; };
+		880010062D986B1F00000001 /* CiderTokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880010052D986B1F00000001 /* CiderTokenStore.swift */; };
+		880010082D986B1F00000001 /* CiderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880010072D986B1F00000001 /* CiderController.swift */; };
+		8800100A2D986B1F00000001 /* TidalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880010092D986B1F00000001 /* TidalController.swift */; };
+		8800100C2D986B1F00000001 /* AudioRouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8800100B2D986B1F00000001 /* AudioRouteManager.swift */; };
+		8800100E2D986B1F00000001 /* RealTimeWaveformScrubberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8800100D2D986B1F00000001 /* RealTimeWaveformScrubberView.swift */; };
+		880010102D986B1F00000001 /* SyncedLyricsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8800100F2D986B1F00000001 /* SyncedLyricsList.swift */; };
+		880010122D986B1F00000001 /* MediaOutputSelectorPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880010112D986B1F00000001 /* MediaOutputSelectorPopover.swift */; };
 		1100290C2E847E2800035A57 /* NSItemProvider+LoadHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1100290B2E847E2800035A57 /* NSItemProvider+LoadHelpers.swift */; };
 		110029272E84FD4C00035A57 /* TemporaryFileStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110029262E84FD4C00035A57 /* TemporaryFileStorageService.swift */; };
 		1100292A2E8691B400035A57 /* FileShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110029292E8691B400035A57 /* FileShareView.swift */; };
@@ -181,6 +190,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		880010012D986B1F00000001 /* FilteredNowPlayingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredNowPlayingController.swift; sourceTree = "<group>"; };
+		880010032D986B1F00000001 /* AmazonMusicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmazonMusicController.swift; sourceTree = "<group>"; };
+		880010052D986B1F00000001 /* CiderTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CiderTokenStore.swift; sourceTree = "<group>"; };
+		880010072D986B1F00000001 /* CiderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CiderController.swift; sourceTree = "<group>"; };
+		880010092D986B1F00000001 /* TidalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TidalController.swift; sourceTree = "<group>"; };
+		8800100B2D986B1F00000001 /* AudioRouteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRouteManager.swift; sourceTree = "<group>"; };
+		8800100D2D986B1F00000001 /* RealTimeWaveformScrubberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeWaveformScrubberView.swift; sourceTree = "<group>"; };
+		8800100F2D986B1F00000001 /* SyncedLyricsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncedLyricsList.swift; sourceTree = "<group>"; };
+		880010112D986B1F00000001 /* MediaOutputSelectorPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaOutputSelectorPopover.swift; sourceTree = "<group>"; };
 		1100290B2E847E2800035A57 /* NSItemProvider+LoadHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSItemProvider+LoadHelpers.swift"; sourceTree = "<group>"; };
 		110029262E84FD4C00035A57 /* TemporaryFileStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryFileStorageService.swift; sourceTree = "<group>"; };
 		110029292E8691B400035A57 /* FileShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileShareView.swift; sourceTree = "<group>"; };
@@ -431,6 +449,11 @@
 				1153BD922D986E4300979FB0 /* AppleMusicController.swift */,
 				1153BD992D98824300979FB0 /* SpotifyController.swift */,
 				1153BD9B2D98853B00979FB0 /* NowPlayingController.swift */,
+				880010012D986B1F00000001 /* FilteredNowPlayingController.swift */,
+				880010032D986B1F00000001 /* AmazonMusicController.swift */,
+				880010052D986B1F00000001 /* CiderTokenStore.swift */,
+				880010072D986B1F00000001 /* CiderController.swift */,
+				880010092D986B1F00000001 /* TidalController.swift */,
 			);
 			path = MediaControllers;
 			sourceTree = "<group>";
@@ -518,6 +541,7 @@
 				14C08BB52C8DE42D000F8AA0 /* CalendarManager.swift */,
 				B1F0A0012E60000100000001 /* BrightnessManager.swift */,
 				59D8C23B2E589FAA00147B33 /* VolumeManager.swift */,
+				8800100B2D986B1F00000001 /* AudioRouteManager.swift */,
 			);
 			path = managers;
 			sourceTree = "<group>";
@@ -697,6 +721,9 @@
 			children = (
 				B19424082CD0FEFE003E5DC2 /* LottieAnimationView.swift */,
 				147163972C5D35B70068B555 /* MusicVisualizer.swift */,
+				8800100D2D986B1F00000001 /* RealTimeWaveformScrubberView.swift */,
+				8800100F2D986B1F00000001 /* SyncedLyricsList.swift */,
+				880010112D986B1F00000001 /* MediaOutputSelectorPopover.swift */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -905,6 +932,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				880010022D986B1F00000001 /* FilteredNowPlayingController.swift in Sources */,
+				880010042D986B1F00000001 /* AmazonMusicController.swift in Sources */,
+				880010062D986B1F00000001 /* CiderTokenStore.swift in Sources */,
+				880010082D986B1F00000001 /* CiderController.swift in Sources */,
+				8800100A2D986B1F00000001 /* TidalController.swift in Sources */,
+				8800100C2D986B1F00000001 /* AudioRouteManager.swift in Sources */,
+				8800100E2D986B1F00000001 /* RealTimeWaveformScrubberView.swift in Sources */,
+				880010102D986B1F00000001 /* SyncedLyricsList.swift in Sources */,
+				880010122D986B1F00000001 /* MediaOutputSelectorPopover.swift in Sources */,
 				115C12EC2ED3D003009754CA /* OpenNotchHUD.swift in Sources */,
 				14C08BB92C8DE4B1000F8AA0 /* BoringCalendar.swift in Sources */,
 				5955950D2E900ED800C66711 /* ApplicationRelauncher.swift in Sources */,

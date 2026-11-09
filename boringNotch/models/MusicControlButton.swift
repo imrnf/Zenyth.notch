@@ -17,6 +17,8 @@ enum MusicControlButton: String, CaseIterable, Identifiable, Codable, Defaults.S
     case favorite
     case goBackward
     case goForward
+    case outputDevice
+    case lyrics
     case none
 
     var id: String { rawValue }
@@ -40,6 +42,8 @@ enum MusicControlButton: String, CaseIterable, Identifiable, Codable, Defaults.S
         .repeatMode,
         .favorite,
         .volume,
+        .outputDevice,
+        .lyrics,
         .goBackward,
         .goForward
     ]
@@ -58,6 +62,10 @@ enum MusicControlButton: String, CaseIterable, Identifiable, Codable, Defaults.S
             return "Repeat"
         case .volume:
             return "Volume"
+        case .outputDevice:
+            return "Audio Output"
+        case .lyrics:
+            return "Lyrics"
         case .favorite:
             return "Favorite"
         case .goBackward:
@@ -83,6 +91,10 @@ enum MusicControlButton: String, CaseIterable, Identifiable, Codable, Defaults.S
             return "repeat"
         case .volume:
             return "speaker.wave.2.fill"
+        case .outputDevice:
+            return "airplayaudio"
+        case .lyrics:
+            return "quote.bubble"
         case .favorite:
             return "heart"
         case .goBackward:

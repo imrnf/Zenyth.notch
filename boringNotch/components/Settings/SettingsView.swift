@@ -685,6 +685,9 @@ struct Media: View {
                         customBadge(text: "Beta")
                     }
                 }
+                Defaults.Toggle(key: .useWaveformScrubber) {
+                    Text("Interactive waveform scrubber")
+                }
             } header: {
                 Text("Media controls")
             }  footer: {

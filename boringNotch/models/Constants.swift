@@ -47,6 +47,9 @@ enum MediaControllerType: String, CaseIterable, Identifiable, Defaults.Serializa
     case appleMusic = "Apple Music"
     case spotify = "Spotify"
     case youtubeMusic = "YouTube Music"
+    case amazonMusic = "Amazon Music"
+    case tidal = "TIDAL"
+    case cider = "Cider"
     
     var id: String { self.rawValue }
 }
@@ -114,6 +117,7 @@ extension Defaults.Keys {
     )
     static let playerColorTinting = Key<Bool>("playerColorTinting", default: true)
     static let useMusicVisualizer = Key<Bool>("useMusicVisualizer", default: true)
+    static let useWaveformScrubber = Key<Bool>("useWaveformScrubber", default: true)
     static let customVisualizers = Key<[CustomVisualizer]>("customVisualizers", default: [])
     static let selectedVisualizer = Key<CustomVisualizer?>("selectedVisualizer", default: nil)
     
