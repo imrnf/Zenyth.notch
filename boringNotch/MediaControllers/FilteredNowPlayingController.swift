@@ -16,7 +16,7 @@ class FilteredNowPlayingController: ObservableObject, MediaControllerProtocol {
 
     func updatePlaybackInfo() async {}
 
-    @Published private(set) var playbackState: PlaybackState
+    @Published var playbackState: PlaybackState
 
     var playbackStatePublisher: AnyPublisher<PlaybackState, Never> {
         $playbackState.eraseToAnyPublisher()
@@ -79,7 +79,9 @@ class FilteredNowPlayingController: ObservableObject, MediaControllerProtocol {
         MRMediaRemoteSetRepeatModeFunction = unsafeBitCast(
             MRMediaRemoteSetRepeatModePointer, to: (@convention(c) (Int) -> Void).self)
 
-        Task { await setupNowPlayingObserver() }
+        Task { [weak self] in
+            await self?.setupNowPlayingObserver()
+        }
     }
 
     deinit {
@@ -123,8 +125,8 @@ class FilteredNowPlayingController: ObservableObject, MediaControllerProtocol {
     func toggleShuffle() async {
         let newShuffleMode = !playbackState.isShuffled
         MRMediaRemoteSetShuffleModeFunction(newShuffleMode ? 3 : 1)
-        await MainActor.run {
-            self.playbackState.isShuffled = newShuffleMode
+        await MainActor.run { [weak self] in
+            self?.playbackState.isShuffled = newShuffleMode
         }
     }
 
@@ -145,16 +147,16 @@ class FilteredNowPlayingController: ObservableObject, MediaControllerProtocol {
         }
 
         MRMediaRemoteSetRepeatModeFunction(newRepeatModeInt)
-        await MainActor.run {
-            self.playbackState.repeatMode = newRepeatMode
+        await MainActor.run { [weak self] in
+            self?.playbackState.repeatMode = newRepeatMode
         }
     }
 
     func seek(to time: Double) async {
         MRMediaRemoteSetElapsedTimeFunction(time)
-        await MainActor.run {
-            self.playbackState.currentTime = time
-            self.playbackState.lastUpdated = Date()
+        await MainActor.run { [weak self] in
+            self?.playbackState.currentTime = time
+            self?.playbackState.lastUpdated = Date()
         }
     }
 
@@ -199,33 +201,26 @@ class FilteredNowPlayingController: ObservableObject, MediaControllerProtocol {
         }
 
         process.executableURL = URL(fileURLWithPath: helperPath)
-        let outputPipe = Pipe()
-        process.standardOutput = outputPipe
 
         let pipeHandler = JSONLinesPipeHandler()
+        process.standardOutput = await pipeHandler.getPipe()
         self.pipeHandler = pipeHandler
-
-        streamTask = Task { [weak self] in
-            guard let self = self else { return }
-            for await update in await pipeHandler.updates() {
-                if Task.isCancelled { break }
-                await self.handleAdapterUpdate(update)
-            }
-        }
-
-        outputPipe.fileHandleForReading.readabilityHandler = { fileHandle in
-            let data = fileHandle.availableData
-            guard !data.isEmpty else { return }
-            Task {
-                await pipeHandler.appendData(data)
-            }
-        }
 
         do {
             try process.run()
             self.process = process
+            streamTask = Task { [weak self] in
+                await self?.processJSONStream()
+            }
         } catch {
             return
+        }
+    }
+
+    private func processJSONStream() async {
+        guard let pipeHandler = self.pipeHandler else { return }
+        await pipeHandler.readJSONLines(as: NowPlayingUpdate.self) { [weak self] update in
+            await self?.handleAdapterUpdate(update)
         }
     }
 

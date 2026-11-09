@@ -29,8 +29,8 @@ final class TidalController: FilteredNowPlayingController {
     override func toggleShuffle() async {
         let current = await TidalAccessibility.isShuffled() ?? playbackState.isShuffled
         guard await TidalAccessibility.setShuffled(!current) else { return }
-        await MainActor.run {
-            self.playbackState.isShuffled = !current
+        await MainActor.run { [weak self] in
+            self?.playbackState.isShuffled = !current
         }
     }
 
@@ -43,8 +43,8 @@ final class TidalController: FilteredNowPlayingController {
         case .one: next = .off
         }
         guard await TidalAccessibility.setRepeatMode(next) else { return }
-        await MainActor.run {
-            self.playbackState.repeatMode = next
+        await MainActor.run { [weak self] in
+            self?.playbackState.repeatMode = next
         }
     }
 }
@@ -152,7 +152,7 @@ struct TidalAccessibility {
         return value
     }
 
-    private static func onAccessibilityQueue<T>(_ work: @escaping () -> T) async -> T {
+    private static func onAccessibilityQueue<T: Sendable>(_ work: @escaping @Sendable () -> T) async -> T {
         await withCheckedContinuation { continuation in
             accessibilityQueue.async { continuation.resume(returning: work()) }
         }
