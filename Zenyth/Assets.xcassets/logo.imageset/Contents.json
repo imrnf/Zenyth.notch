@@ -1,8 +1,9 @@
 {
   "images" : [
     {
-      "filename" : "256-mac 1.png",
-      "idiom" : "universal"
+      "filename" : "zenyth_logo.png",
+      "idiom" : "universal",
+      "scale" : "1x"
     }
   ],
   "info" : {

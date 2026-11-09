@@ -1,8 +1,9 @@
 {
   "images" : [
     {
-      "filename" : "BoringNotch icon.png",
-      "idiom" : "universal"
+      "filename" : "zenyth_logo2.png",
+      "idiom" : "universal",
+      "scale" : "1x"
     }
   ],
   "info" : {
