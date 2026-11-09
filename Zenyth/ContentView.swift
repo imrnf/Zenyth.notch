@@ -25,6 +25,7 @@ struct ContentView: View {
     @ObservedObject var volumeManager = VolumeManager.shared
     @ObservedObject var privacyManager = PrivacyIndicatorManager.shared
     @ObservedObject var dndManager = DoNotDisturbManager.shared
+    @ObservedObject var bluetoothManager = BluetoothManager.shared
     @State private var hoverTask: Task<Void, Never>?
     @State private var isHovering: Bool = false
     @State private var anyDropDebounceTask: Task<Void, Never>?
@@ -63,8 +64,9 @@ struct ContentView: View {
     private var computedChinWidth: CGFloat {
         var chinWidth: CGFloat = vm.closedNotchSize.width
 
-        if coordinator.expandingView.type == .battery && coordinator.expandingView.show
-            && vm.notchState == .closed && Defaults[.showPowerStatusNotifications]
+        if (coordinator.expandingView.type == .battery && Defaults[.showPowerStatusNotifications]
+            || coordinator.expandingView.type == .bluetooth && Defaults[.showBluetoothNotifications])
+            && coordinator.expandingView.show && vm.notchState == .closed
         {
             chinWidth = 640
         } else if (!coordinator.expandingView.show || coordinator.expandingView.type == .music)
@@ -295,6 +297,13 @@ struct ContentView: View {
                             .frame(width: 76, alignment: .trailing)
                         }
                         .frame(height: vm.effectiveClosedNotchHeight, alignment: .center)
+                      } else if coordinator.expandingView.type == .bluetooth && coordinator.expandingView.show
+                          && vm.notchState == .closed && Defaults[.showBluetoothNotifications]
+                      {
+                          BluetoothLiveActivity(
+                              device: bluetoothManager.lastEventDevice,
+                              isConnecting: bluetoothManager.lastEventStatus == .connected
+                          )
                       } else if coordinator.sneakPeek.show && Defaults[.inlineHUD] && (coordinator.sneakPeek.type != .music) && (coordinator.sneakPeek.type != .battery) && vm.notchState == .closed {
                           InlineHUD(type: $coordinator.sneakPeek.type, value: $coordinator.sneakPeek.value, icon: $coordinator.sneakPeek.icon, hoverAnimation: $isHovering, gestureProgress: $gestureProgress)
                               .transition(.opacity)

@@ -45,6 +45,9 @@ struct SettingsView: View {
                 NavigationLink(value: "Battery") {
                     Label("Battery", systemImage: "battery.100.bolt")
                 }
+                NavigationLink(value: "Bluetooth") {
+                    Label("Bluetooth", systemImage: "antenna.radiowaves.left.and.right")
+                }
 //                NavigationLink(value: "Downloads") {
 //                    Label("Downloads", systemImage: "square.and.arrow.down")
 //                }
@@ -83,6 +86,8 @@ struct SettingsView: View {
                     HUD()
                 case "Battery":
                     Charge()
+                case "Bluetooth":
+                    BluetoothSettingsView()
                 case "Shelf":
                     Shelf()
                 case "Shortcuts":
@@ -371,6 +376,13 @@ struct Charge: View {
             } header: {
                 Text("Battery Information")
             }
+            Section {
+                Defaults.Toggle(key: .showBluetoothNotifications) {
+                    Text("Show Bluetooth connection notifications")
+                }
+            } header: {
+                Text("Bluetooth")
+            }
         }
         .onAppear {
             Task { @MainActor in
@@ -379,6 +391,103 @@ struct Charge: View {
         }
         .accentColor(.effectiveAccent)
         .navigationTitle("Battery")
+    }
+}
+
+struct BluetoothSettingsView: View {
+    @ObservedObject private var bluetoothManager = BluetoothManager.shared
+    @ObservedObject private var batteryModel = BatteryStatusViewModel.shared
+
+    var body: some View {
+        Form {
+            Section {
+                Defaults.Toggle(key: .showBluetoothNotifications) {
+                    Text("Show Bluetooth connection notifications")
+                }
+            } header: {
+                Text("Live Activity")
+            } footer: {
+                Text("Notifies you in the notch when Bluetooth devices connect or disconnect, showing battery levels.")
+            }
+
+            Section {
+                HStack(spacing: 12) {
+                    Button(action: {
+                        bluetoothManager.simulateNotification(connected: true)
+                    }) {
+                        Label("Test Connect Notification", systemImage: "bolt.badge.checkmark")
+                    }
+
+                    Button(action: {
+                        bluetoothManager.simulateNotification(connected: false)
+                    }) {
+                        Label("Test Disconnect Notification", systemImage: "bolt.badge.xmark")
+                    }
+                }
+            } header: {
+                Text("Test Live Activity")
+            }
+
+            Section {
+                if bluetoothManager.connectedDevices.isEmpty {
+                    Text("No connected Bluetooth devices found")
+                        .foregroundStyle(.secondary)
+                        .padding(.vertical, 4)
+                } else {
+                    ForEach(bluetoothManager.connectedDevices) { dev in
+                        HStack {
+                            Label {
+                                Text(dev.name)
+                            } icon: {
+                                Image(systemName: dev.iconName)
+                            }
+                            Spacer()
+                            if let battery = dev.batteryLevel {
+                                HStack(spacing: 4) {
+                                    CircularBatteryGauge(
+                                        level: Float(battery),
+                                        size: 14,
+                                        lineWidth: 2,
+                                        color: battery > 20 ? .green : .red
+                                    )
+                                    Text("\(battery)%")
+                                        .font(.caption)
+                                        .monospacedDigit()
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+                        }
+                    }
+                }
+            } header: {
+                HStack {
+                    Text("Connected Devices (\(bluetoothManager.connectedDevices.count))")
+                    Spacer()
+                    Button(action: {
+                        bluetoothManager.scanConnectedDevices()
+                        bluetoothManager.refreshBatteries()
+                    }) {
+                        Image(systemName: "arrow.clockwise")
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+
+            Section {
+                ConnectedDevicesRingWidgetView(
+                    macBatteryLevel: batteryModel.levelBattery,
+                    macIsCharging: batteryModel.isCharging,
+                    macIsInLowPowerMode: batteryModel.isInLowPowerMode,
+                    devices: bluetoothManager.connectedDevices
+                )
+                .frame(maxWidth: .infinity, alignment: .center)
+                .padding(.vertical, 4)
+            } header: {
+                Text("Battery Ring Widget Preview")
+            }
+        }
+        .accentColor(.effectiveAccent)
+        .navigationTitle("Bluetooth")
     }
 }
 

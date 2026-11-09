@@ -6,6 +6,8 @@
 	<string>Zenyth</string>
 	<key>CFBundleName</key>
 	<string>Zenyth</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Zenyth uses Bluetooth to detect connected devices and display their status and battery levels in the notch.</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

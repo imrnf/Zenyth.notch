@@ -95,10 +95,11 @@ struct BatteryMenuView: View {
     var isInLowPowerMode: Bool
     var onDismiss: () -> Void
 
+    @ObservedObject private var bluetoothManager = BluetoothManager.shared
     @Environment(\.openURL) private var openURL
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 14) {
 
             HStack {
                 Text("Battery Status")
@@ -109,6 +110,15 @@ struct BatteryMenuView: View {
                     .font(.headline)
                     .fontWeight(.semibold)
             }
+
+            // Circular Battery Rings (MacBook + Connected Bluetooth Devices)
+            ConnectedDevicesRingWidgetView(
+                macBatteryLevel: levelBattery,
+                macIsCharging: isCharging,
+                macIsInLowPowerMode: isInLowPowerMode,
+                devices: bluetoothManager.connectedDevices
+            )
+            .frame(maxWidth: .infinity, alignment: .center)
             
             VStack(alignment: .leading, spacing: 8) {
                 Text("Max Capacity: \(Int(maxCapacity))%")
