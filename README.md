@@ -4,6 +4,9 @@
   <br>
 </h1>
 
+> [!NOTE]
+> **Zenyth** is an independent open-source fork of [boring.notch](https://github.com/TheBoredTeam/boring.notch) by The Bored Team, licensed under the [GNU General Public License v3.0](LICENSE).
+
 Say hello to **Zenyth**, the coolest way to make your MacBook’s notch the star of the show! Say goodbye to boring status bars: with Zenyth, your notch transforms into a dynamic music control center, complete with a vibrant visualizer and all the essential music controls you need. But that’s just the start! Zenyth also offers calendar integration, a handy file shelf with AirDrop support, a complete MacOS HUD replacement and more!
 
 <p align="center">
