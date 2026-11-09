@@ -1,6 +1,6 @@
 //
 //  PanGesture.swift
-//  boringNotch
+//  Zenyth
 //
 //  Created by Richard Kunkli on 21/08/2024.
 //

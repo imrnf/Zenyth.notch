@@ -1,6 +1,6 @@
 //
 //  CiderTokenStore.swift
-//  boringNotch
+//  Zenyth
 //
 //  Keychain storage for Cider app token.
 //  Derived from Atoll project.
@@ -14,7 +14,7 @@ import Defaults
 final class CiderTokenStore: @unchecked Sendable {
     static let shared = CiderTokenStore()
 
-    private static let service = "com.TheBoredTeam.boringNotch.Cider"
+    private static let service = "com.zenyth.notch.Cider"
     private static let account = "appToken"
 
     private let lock = NSLock()

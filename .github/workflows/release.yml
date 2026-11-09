@@ -1,4 +1,4 @@
-name: "Deploy Boring Notch"
+name: "Deploy Zenyth"
 
 on:
   workflow_dispatch:
@@ -18,8 +18,8 @@ permissions:
   pull-requests: read
 
 env:
-  PROJECT_NAME: boringNotch
-  APP_NAME: Boring Notch
+  PROJECT_NAME: Zenyth
+  APP_NAME: Zenyth
   BETA_CHANNEL_NAME: beta
 
 jobs:
@@ -605,10 +605,10 @@ jobs:
             end
             auto_updates true
             depends_on macos: :sonoma
-            app "Boring Notch.app"
+            app "Zenyth.app"
 
             postflight do
-              app_path = appdir/"Boring Notch.app"
+              app_path = appdir/"Zenyth.app"
               next unless app_path.exist?
               system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", app_path]
             end

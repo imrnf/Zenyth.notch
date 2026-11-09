@@ -1,6 +1,6 @@
 //
 //  Image2Color.swift
-//  boringNotch
+//  Zenyth
 //
 //  Created by Richard Kunkli on 07/08/2024.
 //

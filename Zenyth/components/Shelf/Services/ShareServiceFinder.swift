@@ -1,6 +1,6 @@
 //
 //  ShareServiceFinder.swift
-//  boringNotch
+//  Zenyth
 //
 //  Created by Alexander on 2025-10-06.
 //

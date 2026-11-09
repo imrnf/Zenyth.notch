@@ -1,5 +1,5 @@
 //  BrightnessManager.swift
-//  boringNotch
+//  Zenyth
 //
 //  Created by JeanLouis on 08/22/24.
 

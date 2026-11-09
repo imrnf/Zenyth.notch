@@ -1,6 +1,6 @@
 //
 //  ShelfItemView.swift
-//  boringNotch
+//  Zenyth
 //
 //  Created by Alexander on 2025-09-24.
 //

@@ -1,6 +1,6 @@
 //
 //  TidalController.swift
-//  boringNotch
+//  Zenyth
 //
 //  Derived from Atoll project.
 //  Licensed under GNU General Public License v3.0.
@@ -125,7 +125,7 @@ struct TidalAccessibility {
     }
 
     private static let accessibilityQueue = DispatchQueue(
-        label: "com.boringNotch.tidal.accessibility",
+        label: "com.zenyth.notch.tidal.accessibility",
         qos: .userInitiated
     )
 

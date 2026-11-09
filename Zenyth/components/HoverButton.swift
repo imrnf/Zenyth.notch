@@ -1,6 +1,6 @@
 //
 //  HoverButton.swift
-//  boringNotch
+//  Zenyth
 //
 //  Created by Kraigo on 04.09.2024.
 //

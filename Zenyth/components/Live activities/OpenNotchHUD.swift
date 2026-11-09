@@ -1,6 +1,6 @@
 //
 //  OpenNotchHUD.swift
-//  boringNotch
+//  Zenyth
 //
 //  Created by Alexander on 2024-11-23.
 //

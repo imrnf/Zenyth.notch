@@ -1,6 +1,6 @@
 //
 //  AppIcons.swift
-//  boringNotch
+//  Zenyth
 //
 //  Created by Harsh Vardhan  Goswami  on 16/08/24.
 //

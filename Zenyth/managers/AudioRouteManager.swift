@@ -1,6 +1,6 @@
 //
 //  AudioRouteManager.swift
-//  boringNotch
+//  Zenyth
 //
 //  Derived from Atoll project.
 //  Licensed under GNU General Public License v3.0.
@@ -11,7 +11,7 @@ import CoreAudio
 import Foundation
 
 extension Notification.Name {
-    static let systemAudioRouteDidChange = Notification.Name("boringNotch.systemAudioRouteDidChange")
+    static let systemAudioRouteDidChange = Notification.Name("com.zenyth.notch.systemAudioRouteDidChange")
 }
 
 struct AudioOutputDevice: Identifiable, Equatable {
@@ -66,7 +66,7 @@ final class AudioRouteManager: ObservableObject {
     @Published private(set) var devices: [AudioOutputDevice] = []
     @Published private(set) var activeDeviceID: AudioDeviceID = 0
 
-    private let queue = DispatchQueue(label: "com.boringNotch.audio-route", qos: .userInitiated)
+    private let queue = DispatchQueue(label: "com.zenyth.notch.audio-route", qos: .userInitiated)
 
     private init() {
         refreshDevices()

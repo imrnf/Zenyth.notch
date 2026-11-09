@@ -1,6 +1,6 @@
 //
-//  boringNotchApp.swift
-//  boringNotchApp
+//  ZenythApp.swift
+//  Zenyth
 //
 //  Created by Harsh Vardhan  Goswami  on 02/08/24.
 //

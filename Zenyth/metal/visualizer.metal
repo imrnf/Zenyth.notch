@@ -1,6 +1,6 @@
 //
 //  visualizer.metal
-//  boringNotch
+//  Zenyth
 //
 //  Created by Harsh Vardhan  Goswami  on 28/08/24.
 //

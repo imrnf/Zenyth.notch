@@ -34,14 +34,12 @@ Say hello to **Zenyth**, the coolest way to make your MacBook’s notch the star
 
 ---
 
-### Option 1: Download and Install Manually
+### Manual Installation
 
-<a href="https://github.com/TheBoredTeam/boring.notch/releases/latest/download/boringNotch.dmg" target="_self"><img width="200" src="https://github.com/user-attachments/assets/e3179be1-8416-4b8a-b417-743e1ecc67d6" alt="Download for macOS" /></a>
-
-Once downloaded, open the `.dmg` and move **Boring Notch** to your `/Applications` folder.
+Once downloaded, open the `.dmg` and move **Zenyth** to your `/Applications` folder.
 
 > [!IMPORTANT]
-> We don't have an Apple Developer account (yet 👀), so macOS will warn you that Boring Notch is from an unidentified developer on first launch. This is expected behavior.
+> macOS may warn you that Zenyth is from an unidentified developer on first launch. This is expected behavior for open-source apps not distributed via the App Store.
 >
 > You'll need to bypass this before the app will open. You only need to do this once. Use one of the methods below.
 
@@ -51,10 +49,10 @@ Once downloaded, open the `.dmg` and move **Boring Notch** to your `/Application
 
 This is the quickest and easiest method. It only requires a single command and works consistently for all users. System Settings can sometimes fail and won't work for non-admin users.
 
-After moving Boring Notch to your Applications folder, run:
+After moving Zenyth to your Applications folder, run:
 
 ```bash
-xattr -dr com.apple.quarantine "/Applications/Boring Notch.app"
+xattr -dr com.apple.quarantine "/Applications/Zenyth.app"
 ```
 
 Then open the app normally.
@@ -69,18 +67,8 @@ Then open the app normally.
 1. Try to open the app — you'll see a security warning.
 2. Click **OK** to dismiss it.
 3. Open **System Settings** > **Privacy & Security**.
-4. Scroll to the bottom and click **Open Anyway** next to the Boring Notch warning.
+4. Scroll to the bottom and click **Open Anyway** next to the Zenyth warning.
 5. Confirm if prompted.
-
----
-
-### Option 2: Install via Homebrew
-
-You can also install using [Homebrew](https://brew.sh). The Homebrew installation automatically bypasses the macOS security warning described above.
-
-```bash
-brew install --cask TheBoredTeam/boring-notch/boring-notch
-```
 
 ## Usage
 
@@ -118,20 +106,20 @@ brew install --cask TheBoredTeam/boring-notch/boring-notch
 
 ### Prerequisites
 
-- **macOS 15.6 or later**
-- **Xcode 26 or later**
+- **macOS 14 Sonoma or later**
+- **Xcode 15 or later**
 
 ### Installation
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/TheBoredTeam/boring.notch.git
-   cd boring.notch
+   git clone https://github.com/imrnf/Zenyth.notch.git
+   cd Zenyth.notch
    ```
 
 2. **Open the Project in Xcode**:
    ```bash
-   open boringNotch.xcodeproj
+   open Zenyth.xcodeproj
    ```
 
 3. **Build and Run**:
@@ -141,43 +129,17 @@ brew install --cask TheBoredTeam/boring-notch/boring-notch
 
 We’re all about good vibes and awesome contributions! Read [CONTRIBUTING.md](CONTRIBUTING.md) to learn how you can join the fun!
 
-## Join our Discord Server
-
-<a href="https://discord.gg/GvYcYpAKTu" target="_blank"><img src="https://iili.io/28m3GHv.png" alt="Join The Boring Server!" style="height: 60px !important;width: 217px !important;" ></a>
-
-## Star History
-<!-- BROKEN: GitHub now restricts the stargazer API for privacy reasons
-<a href="https://www.star-history.com/#TheBoredTeam/boring.notch&Timeline">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=TheBoredTeam/boring.notch&type=Timeline&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=TheBoredTeam/boring.notch&type=Timeline" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=TheBoredTeam/boring.notch&type=Timeline" />
- </picture>
-</a>
--->
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/TheBoredTeam/org-star-chart-updater/main/projects/boring.notch/chart-dark.svg">
-   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/TheBoredTeam/org-star-chart-updater/main/projects/boring.notch/chart-light.svg">
-   <img src="https://raw.githubusercontent.com/TheBoredTeam/org-star-chart-updater/main/projects/boring.notch/chart-light.svg" alt="TheBoredTeam/boring.notch GitHub star history">
- </picture>
-
-## Support us on Ko-fi!
-<!-- <a href="https://www.buymeacoffee.com/jfxh67wvfxq" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a> -->
-<a href="https://www.ko-fi.com/alexander5015" target="_blank"><img src="https://github.com/user-attachments/assets//a76175ef-7e93-475a-8b67-4922ba5964c2" alt="Support us on Ko-fi" style="height: 70px !important;width: 346px !important;" ></a>
-
 ## 🎉 Acknowledgments
 
 We would like to express our gratitude to the authors and maintainers of the open-source projects that made this possible. 
 
 ## Notable Projects
+- **[boring.notch](https://github.com/TheBoredTeam/boring.notch)** – The original project upon which Zenyth is based.
 - **[MediaRemoteAdapter](https://github.com/ungive/mediaremote-adapter)** –  An open-source project that allowed us to use the Now Playing source in macOS 15.4+
-- **[NotchDrop](https://github.com/Lakr233/NotchDrop)** – An open-source project that has been instrumental in developing the first version of the "Shelf" feature in Boring Notch.
+- **[NotchDrop](https://github.com/Lakr233/NotchDrop)** – An open-source project that has been instrumental in developing the first version of the "Shelf" feature in Zenyth.
 
 For a full list of licenses and attributions, please see the [Third-Party Licenses](./THIRD_PARTY_LICENSES.md) file.
 
-### Icon credits: [@maxtron95](https://github.com/maxtron95)
-### Website credits: [@himanshhhhuv](https://github.com/himanshhhhuv)
-
 - **SwiftUI**: For making us look like coding wizards.
-- **You**: For being awesome and checking out **boring.notch**!
+- **You**: For being awesome and checking out **Zenyth**!
 

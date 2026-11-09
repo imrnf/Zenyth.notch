@@ -1,6 +1,6 @@
 //
 //  SyncedLyricsList.swift
-//  boringNotch
+//  Zenyth
 //
 //  Derived from Atoll and Zenyth.notch projects.
 //  Licensed under GNU General Public License v3.0.

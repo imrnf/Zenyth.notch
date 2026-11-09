@@ -1,6 +1,6 @@
 //
 //  MarqueeTextView.swift
-//  boringNotch
+//  Zenyth
 //
 //  Created by Richard Kunkli on 08/08/2024.
 //

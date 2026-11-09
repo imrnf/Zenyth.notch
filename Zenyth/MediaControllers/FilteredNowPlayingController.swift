@@ -1,6 +1,6 @@
 //
 //  FilteredNowPlayingController.swift
-//  boringNotch
+//  Zenyth
 //
 //  Derived from Zenyth.notch and Atoll projects.
 //  Licensed under GNU General Public License v3.0.

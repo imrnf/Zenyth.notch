@@ -1,6 +1,6 @@
 //
 //  DownloadView.swift
-//  boringNotch
+//  Zenyth
 //
 //  Created by Harsh Vardhan  Goswami  on 17/08/24.
 //

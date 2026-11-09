@@ -1,6 +1,6 @@
 //
 //  OnboardingFinishView.swift
-//  boringNotch
+//  Zenyth
 //
 //  Created by Alexander on 2025-06-23.
 //

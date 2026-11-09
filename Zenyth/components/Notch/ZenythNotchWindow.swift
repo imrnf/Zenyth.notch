@@ -1,6 +1,6 @@
 //
 //  ZenythNotchWindow.swift
-//  boringNotch
+//  Zenyth
 //
 //  Created by Harsh Vardhan  Goswami  on 06/08/24.
 //

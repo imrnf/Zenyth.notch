@@ -1,6 +1,6 @@
 //
 //  ConditionalModifier.swift
-//  boringNotch
+//  Zenyth
 //
 //  Created by Richard Kunkli on 20/08/2024.
 //
