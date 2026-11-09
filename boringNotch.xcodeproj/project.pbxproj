@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		880030022D986B1F00000001 /* StatsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880030012D986B1F00000001 /* StatsManager.swift */; };
+		880030042D986B1F00000001 /* NotchStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880030032D986B1F00000001 /* NotchStatsView.swift */; };
 		880020022D986B1F00000001 /* CameraMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880020012D986B1F00000001 /* CameraMonitor.swift */; };
 		880020042D986B1F00000001 /* MicrophoneMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880020032D986B1F00000001 /* MicrophoneMonitor.swift */; };
 		880020062D986B1F00000001 /* ScreenRecordingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880020052D986B1F00000001 /* ScreenRecordingManager.swift */; };
@@ -197,6 +199,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		880030012D986B1F00000001 /* StatsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsManager.swift; sourceTree = "<group>"; };
+		880030032D986B1F00000001 /* NotchStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchStatsView.swift; sourceTree = "<group>"; };
 		880020012D986B1F00000001 /* CameraMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMonitor.swift; sourceTree = "<group>"; };
 		880020032D986B1F00000001 /* MicrophoneMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophoneMonitor.swift; sourceTree = "<group>"; };
 		880020052D986B1F00000001 /* ScreenRecordingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenRecordingManager.swift; sourceTree = "<group>"; };
@@ -561,6 +565,7 @@
 				880020052D986B1F00000001 /* ScreenRecordingManager.swift */,
 				880020072D986B1F00000001 /* PrivacyIndicatorManager.swift */,
 				880020092D986B1F00000001 /* DoNotDisturbManager.swift */,
+				880030012D986B1F00000001 /* StatsManager.swift */,
 			);
 			path = managers;
 			sourceTree = "<group>";
@@ -753,6 +758,7 @@
 				1194E8862EA6DDA7009C82D6 /* BoringNotchSkyLightWindow.swift */,
 				1160F8D72DD98230006FBB94 /* NotchShape.swift */,
 				9AB0C6BB2C73C9CB00F7CD30 /* NotchHomeView.swift */,
+				880030032D986B1F00000001 /* NotchStatsView.swift */,
 				14D570C52C5F38210011E668 /* BoringHeader.swift */,
 				14D570D12C5F6C6A0011E668 /* BoringExtrasMenu.swift */,
 				1471A8582C6281BD0058408D /* BoringNotchWindow.swift */,
@@ -953,6 +959,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				880030022D986B1F00000001 /* StatsManager.swift in Sources */,
+				880030042D986B1F00000001 /* NotchStatsView.swift in Sources */,
 				880020022D986B1F00000001 /* CameraMonitor.swift in Sources */,
 				880020042D986B1F00000001 /* MicrophoneMonitor.swift in Sources */,
 				880020062D986B1F00000001 /* ScreenRecordingManager.swift in Sources */,

@@ -87,3 +87,4 @@ final class PrivacyIndicatorManager: ObservableObject {
             .store(in: &cancellables)
     }
 }
+

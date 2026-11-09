@@ -42,3 +42,4 @@ struct PrivacyLiveActivity: View {
         .padding(.horizontal, 4)
     }
 }
+
