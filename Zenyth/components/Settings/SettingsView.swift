@@ -295,7 +295,7 @@ struct GeneralSettings: View {
                     Text("Navigate tabs with trackpad swipe or arrow keys")
                 }
                 Defaults.Toggle(key: .showTabArrowButtons) {
-                    Text("Show navigation arrows in tab bar")
+                    Text("Show navigation arrows on notch sides")
                 }
                 Defaults.Toggle(key: .closeGestureEnabled) {
                     Text("Close gesture")

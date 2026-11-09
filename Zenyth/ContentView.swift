@@ -397,19 +397,97 @@ struct ContentView: View {
               }
               .zIndex(2)
             if vm.notchState == .open {
-                VStack(spacing: 0) {
-                    switch coordinator.currentView {
-                    case .home:
-                        NotchHomeView(albumArtNamespace: albumArtNamespace)
-                    case .shelf:
-                        ShelfView()
-                    case .stats:
-                        NotchStatsView()
-                    case .clipboard:
-                        NotchClipboardView()
+                ZStack(alignment: .bottom) {
+                    VStack(spacing: 0) {
+                        switch coordinator.currentView {
+                        case .home:
+                            NotchHomeView(albumArtNamespace: albumArtNamespace)
+                        case .shelf:
+                            ShelfView()
+                        case .stats:
+                            NotchStatsView()
+                        case .clipboard:
+                            NotchClipboardView()
+                        }
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+
+                    // Side Navigation Arrows (< and >) matching user's design reference
+                    if Defaults[.showTabArrowButtons] {
+                        HStack {
+                            if coordinator.canSelectPreviousTab {
+                                Button(action: {
+                                    coordinator.selectPreviousTab()
+                                }) {
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color.white.opacity(0.18))
+                                            .frame(width: 30, height: 30)
+                                        Image(systemName: "chevron.left")
+                                            .font(.system(size: 13, weight: .bold))
+                                            .foregroundStyle(.white)
+                                    }
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                                .padding(.leading, 8)
+                                .transition(.opacity.combined(with: .scale(scale: 0.8)))
+                            } else {
+                                Spacer().frame(width: 38)
+                            }
+
+                            Spacer()
+
+                            if coordinator.canSelectNextTab {
+                                Button(action: {
+                                    coordinator.selectNextTab()
+                                }) {
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color.white.opacity(0.18))
+                                            .frame(width: 30, height: 30)
+                                        Image(systemName: "chevron.right")
+                                            .font(.system(size: 13, weight: .bold))
+                                            .foregroundStyle(.white)
+                                    }
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                                .padding(.trailing, 8)
+                                .transition(.opacity.combined(with: .scale(scale: 0.8)))
+                            } else {
+                                Spacer().frame(width: 38)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+
+                        // Bottom Page Dots Indicator
+                        HStack(spacing: 5) {
+                            ForEach(0..<ZenythViewCoordinator.tabOrder.count, id: \.self) { index in
+                                let tab = ZenythViewCoordinator.tabOrder[index]
+                                let isSelected = coordinator.currentView == tab
+
+                                Button(action: {
+                                    withAnimation(.smooth) {
+                                        coordinator.currentView = tab
+                                    }
+                                }) {
+                                    if isSelected {
+                                        Capsule()
+                                            .fill(Color.white)
+                                            .frame(width: 14, height: 4)
+                                    } else {
+                                        Circle()
+                                            .fill(Color.white.opacity(0.3))
+                                            .frame(width: 4, height: 4)
+                                    }
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                        }
+                        .padding(.bottom, 6)
+                        .transition(.opacity)
                     }
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .transition(
                     .scale(scale: 0.8, anchor: .top)
                     .combined(with: .opacity)
