@@ -7,12 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		880040022D986B1F00000001 /* TimerPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880040012D986B1F00000001 /* TimerPreset.swift */; };
 		880040042D986B1F00000001 /* ClipboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880040032D986B1F00000001 /* ClipboardItem.swift */; };
-		880040062D986B1F00000001 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880040052D986B1F00000001 /* TimerManager.swift */; };
 		880040082D986B1F00000001 /* ClipboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880040072D986B1F00000001 /* ClipboardManager.swift */; };
-		8800400A2D986B1F00000001 /* TimerLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880040092D986B1F00000001 /* TimerLiveActivity.swift */; };
-		8800400C2D986B1F00000001 /* NotchTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8800400B2D986B1F00000001 /* NotchTimerView.swift */; };
 		8800400E2D986B1F00000001 /* NotchClipboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8800400D2D986B1F00000001 /* NotchClipboardView.swift */; };
 		880030022D986B1F00000001 /* StatsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880030012D986B1F00000001 /* StatsManager.swift */; };
 		880030042D986B1F00000001 /* NotchStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880030032D986B1F00000001 /* NotchStatsView.swift */; };
@@ -206,12 +202,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		880040012D986B1F00000001 /* TimerPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPreset.swift; sourceTree = "<group>"; };
 		880040032D986B1F00000001 /* ClipboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardItem.swift; sourceTree = "<group>"; };
-		880040052D986B1F00000001 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		880040072D986B1F00000001 /* ClipboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardManager.swift; sourceTree = "<group>"; };
-		880040092D986B1F00000001 /* TimerLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerLiveActivity.swift; sourceTree = "<group>"; };
-		8800400B2D986B1F00000001 /* NotchTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchTimerView.swift; sourceTree = "<group>"; };
 		8800400D2D986B1F00000001 /* NotchClipboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchClipboardView.swift; sourceTree = "<group>"; };
 		880030012D986B1F00000001 /* StatsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsManager.swift; sourceTree = "<group>"; };
 		880030032D986B1F00000001 /* NotchStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchStatsView.swift; sourceTree = "<group>"; };
@@ -580,7 +572,6 @@
 				880020072D986B1F00000001 /* PrivacyIndicatorManager.swift */,
 				880020092D986B1F00000001 /* DoNotDisturbManager.swift */,
 				880030012D986B1F00000001 /* StatsManager.swift */,
-				880040052D986B1F00000001 /* TimerManager.swift */,
 				880040072D986B1F00000001 /* ClipboardManager.swift */,
 			);
 			path = managers;
@@ -698,7 +689,6 @@
 				14D570C82C5F38890011E668 /* BoringViewModel.swift */,
 				14D570CA2C5F4B2C0011E668 /* BatteryStatusViewModel.swift */,
 				1153BD902D986DB300979FB0 /* PlaybackState.swift */,
-				880040012D986B1F00000001 /* TimerPreset.swift */,
 				880040032D986B1F00000001 /* ClipboardItem.swift */,
 			);
 			path = models;
@@ -777,7 +767,6 @@
 				1160F8D72DD98230006FBB94 /* NotchShape.swift */,
 				9AB0C6BB2C73C9CB00F7CD30 /* NotchHomeView.swift */,
 				880030032D986B1F00000001 /* NotchStatsView.swift */,
-				8800400B2D986B1F00000001 /* NotchTimerView.swift */,
 				8800400D2D986B1F00000001 /* NotchClipboardView.swift */,
 				14D570C52C5F38210011E668 /* BoringHeader.swift */,
 				14D570D12C5F6C6A0011E668 /* BoringExtrasMenu.swift */,
@@ -811,7 +800,6 @@
 				B172AABF2C95DA0B001623F1 /* InlineHUD.swift */,
 				8800200B2D986B1F00000001 /* PrivacyLiveActivity.swift */,
 				8800200D2D986B1F00000001 /* DoNotDisturbLiveActivity.swift */,
-				880040092D986B1F00000001 /* TimerLiveActivity.swift */,
 			);
 			path = "Live activities";
 			sourceTree = "<group>";
@@ -980,12 +968,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				880040022D986B1F00000001 /* TimerPreset.swift in Sources */,
 				880040042D986B1F00000001 /* ClipboardItem.swift in Sources */,
-				880040062D986B1F00000001 /* TimerManager.swift in Sources */,
 				880040082D986B1F00000001 /* ClipboardManager.swift in Sources */,
-				8800400A2D986B1F00000001 /* TimerLiveActivity.swift in Sources */,
-				8800400C2D986B1F00000001 /* NotchTimerView.swift in Sources */,
 				8800400E2D986B1F00000001 /* NotchClipboardView.swift in Sources */,
 				880030022D986B1F00000001 /* StatsManager.swift in Sources */,
 				880030042D986B1F00000001 /* NotchStatsView.swift in Sources */,

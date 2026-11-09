@@ -18,7 +18,6 @@ let tabs = [
     TabModel(label: "Home", icon: "house.fill", view: .home),
     TabModel(label: "Shelf", icon: "tray.fill", view: .shelf),
     TabModel(label: "Stats", icon: "chart.xyaxis.line", view: .stats),
-    TabModel(label: "Timer", icon: "timer", view: .timer),
     TabModel(label: "Clipboard", icon: "clipboard.fill", view: .clipboard)
 ]
 
