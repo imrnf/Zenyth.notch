@@ -12,8 +12,8 @@ struct NotchStatsView: View {
     @ObservedObject var stats = StatsManager.shared
 
     var body: some View {
-        VStack(spacing: 12) {
-            HStack(spacing: 10) {
+        VStack(spacing: 8) {
+            HStack(spacing: 8) {
                 // CPU Card
                 StatCard(
                     title: "CPU",
@@ -45,7 +45,7 @@ struct NotchStatsView: View {
                 )
             }
 
-            HStack(spacing: 10) {
+            HStack(spacing: 8) {
                 // Network Card
                 StatCard(
                     title: "Network",
@@ -64,7 +64,7 @@ struct NotchStatsView: View {
             }
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 12)
+        .padding(.vertical, 4)
         .onAppear {
             stats.startMonitoring()
         }
@@ -84,7 +84,7 @@ struct StatCard: View {
     let maxValue: Double
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 5) {
                 Image(systemName: icon)
                     .font(.system(size: 11, weight: .semibold))
@@ -100,9 +100,10 @@ struct StatCard: View {
 
             // Sparkline Graph
             SparklineView(data: history, maxValue: maxValue, color: color)
-                .frame(height: 24)
+                .frame(height: 18)
         }
-        .padding(10)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 6)
         .background(
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.white.opacity(0.06))
@@ -121,7 +122,7 @@ struct DiskStorageCard: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 5) {
                 Image(systemName: "internaldrive")
                     .font(.system(size: 11, weight: .semibold))
@@ -140,16 +141,17 @@ struct DiskStorageCard: View {
                 ZStack(alignment: .leading) {
                     RoundedRectangle(cornerRadius: 4)
                         .fill(Color.gray.opacity(0.3))
-                        .frame(height: 8)
+                        .frame(height: 7)
 
                     RoundedRectangle(cornerRadius: 4)
                         .fill(Color.teal)
-                        .frame(width: max(4, geo.size.width * CGFloat(usedPercentage / 100.0)), height: 8)
+                        .frame(width: max(4, geo.size.width * CGFloat(usedPercentage / 100.0)), height: 7)
                 }
             }
-            .frame(height: 24)
+            .frame(height: 18)
         }
-        .padding(10)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 6)
         .background(
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.white.opacity(0.06))

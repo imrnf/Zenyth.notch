@@ -110,7 +110,7 @@ struct NotchClipboardView: View {
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.top, 8)
+            .padding(.top, 4)
 
             // Content: Item Cards
             if filteredItems.isEmpty {
@@ -154,11 +154,11 @@ struct NotchClipboardView: View {
                                     }
                                 }
                             )
-                            .frame(width: 175, height: 115)
+                            .frame(width: 165, height: 86)
                         }
                     }
                     .padding(.horizontal, 16)
-                    .padding(.bottom, 10)
+                    .padding(.bottom, 6)
                 }
             }
         }
@@ -207,9 +207,9 @@ struct ClipboardCard: View {
 
             // Preview Text
             Text(item.preview)
-                .font(.system(size: 11))
+                .font(.system(size: 10))
                 .foregroundColor(.white.opacity(0.9))
-                .lineLimit(3)
+                .lineLimit(2)
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .topLeading)
 
