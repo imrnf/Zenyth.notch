@@ -45,6 +45,7 @@ final class ShelfStateViewModel: ObservableObject {
 
     func remove(_ item: ShelfItem) {
         item.cleanupStoredData()
+        ShelfSelectionModel.shared.deselect(item.id)
         items.removeAll { $0.id == item.id }
     }
 

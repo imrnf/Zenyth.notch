@@ -98,9 +98,11 @@ struct ShelfView: View {
                         ForEach(tvm.items) { item in
                             ShelfItemView(item: item)
                                 .environmentObject(quickLookService)
+                                .transition(.scale(scale: 0.85).combined(with: .opacity))
                         }
                     }
                 }
+                .animation(.smooth(duration: 0.25), value: tvm.items)
                 .padding(-spacing)
                 .scrollIndicators(.never)
                 .onDrop(of: [.fileURL, .url, .utf8PlainText, .plainText, .data], isTargeted: $vm.dragDetectorTargeting) { providers in

@@ -20,6 +20,8 @@ struct ShelfItemView: View {
     @State private var showStack = false
     @State private var cachedPreviewImage: NSImage?
     @State private var debouncedDropTarget = false
+    @State private var isHovered = false
+    @State private var isCloseHovered = false
 
     private var isSelected: Bool { viewModel.isSelected }
     private var shouldHideDuringDrag: Bool { selection.isDragging && selection.isSelected(item.id) && false }
@@ -54,13 +56,24 @@ struct ShelfItemView: View {
                     onRightClick: viewModel.handleRightClick,
                     onClick: { event, nsview in
                         viewModel.handleClick(event: event, view: nsview)
+                    },
+                    onDelete: {
+                        deleteItem()
                     }
                 )
+
+                deleteButton
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
             } else {
                 Color.clear
                     .frame(width: 105)
                     .padding(.vertical, 10)
                     .padding(.horizontal, 5)
+            }
+        }
+        .onHover { hovering in
+            withAnimation(.easeInOut(duration: 0.15)) {
+                isHovered = hovering
             }
         }
         .onChange(of: viewModel.isDropTargeted) { _, targeted in
@@ -165,7 +178,46 @@ struct ShelfItemView: View {
         return renderer.nsImage ?? (viewModel.thumbnail ?? item.icon)
     }
 
-    
+    // MARK: - Delete Action & Button
+
+    private var deleteButton: some View {
+        Button(action: {
+            deleteItem()
+        }) {
+            ZStack {
+                Circle()
+                    .fill(isCloseHovered ? Color.red.opacity(0.85) : Color.black.opacity(0.65))
+                    .frame(width: 18, height: 18)
+
+                Image(systemName: "xmark")
+                    .font(.system(size: 8, weight: .bold))
+                    .foregroundColor(.white.opacity(isCloseHovered ? 1.0 : 0.85))
+            }
+            .overlay(
+                Circle()
+                    .stroke(Color.white.opacity(isCloseHovered ? 0.35 : 0.2), lineWidth: 1)
+            )
+            .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
+            .scaleEffect(isCloseHovered ? 1.1 : 1.0)
+            .contentShape(Circle())
+        }
+        .buttonStyle(.plain)
+        .padding(6)
+        .opacity(isHovered || isSelected ? 1.0 : 0.65)
+        .onHover { hovering in
+            withAnimation(.easeInOut(duration: 0.12)) {
+                isCloseHovered = hovering
+            }
+        }
+        .help("Remove from shelf")
+    }
+
+    private func deleteItem() {
+        withAnimation(.smooth(duration: 0.2)) {
+            ShelfActionService.remove(item)
+            ShelfSelectionModel.shared.deselect(item.id)
+        }
+    }
 }
 
 // MARK: - Draggable Click Handler with NSDraggingSource
@@ -176,6 +228,7 @@ private struct DraggableClickHandler<Content: View>: NSViewRepresentable {
     @ViewBuilder let dragPreviewContent: () -> Content
     let onRightClick: (NSEvent, NSView) -> Void
     let onClick: (NSEvent, NSView) -> Void
+    var onDelete: (() -> Void)? = nil
     
     func makeNSView(context: Context) -> DraggableClickView {
         let view = DraggableClickView()
@@ -184,6 +237,7 @@ private struct DraggableClickHandler<Content: View>: NSViewRepresentable {
         view.dragPreviewImage = cachedPreviewImage ?? renderDragPreview()
         view.onRightClick = onRightClick
         view.onClick = onClick
+        view.onDelete = onDelete
         return view
     }
     
@@ -196,6 +250,7 @@ private struct DraggableClickHandler<Content: View>: NSViewRepresentable {
         }
         nsView.onRightClick = onRightClick
         nsView.onClick = onClick
+        nsView.onDelete = onDelete
     }
     
     private func renderDragPreview() -> NSImage {
@@ -217,17 +272,50 @@ private struct DraggableClickHandler<Content: View>: NSViewRepresentable {
         var dragPreviewImage: NSImage?
         var onRightClick: ((NSEvent, NSView) -> Void)?
         var onClick: ((NSEvent, NSView) -> Void)?
+        var onDelete: (() -> Void)?
 
         private var mouseDownEvent: NSEvent?
         private let dragThreshold: CGFloat = 3.0
         private var draggedURLs: [URL] = []
         private var draggedItems: [ShelfItem] = []
+
+        private func isPointInDeleteArea(_ localPoint: NSPoint) -> Bool {
+            let inX = localPoint.x >= (bounds.width - 32) && localPoint.x <= bounds.width
+            let inY = isFlipped ? (localPoint.y >= 0 && localPoint.y <= 32) : (localPoint.y >= bounds.height - 32 && localPoint.y <= bounds.height)
+            return inX && inY
+        }
+
+        override func hitTest(_ point: NSPoint) -> NSView? {
+            guard let superview = self.superview else { return super.hitTest(point) }
+            let localPoint = convert(point, from: superview)
+            if isPointInDeleteArea(localPoint) {
+                return nil
+            }
+            return super.hitTest(point)
+        }
+
+        override func resetCursorRects() {
+            super.resetCursorRects()
+            let deleteRect = isFlipped
+                ? NSRect(x: bounds.width - 32, y: 0, width: 32, height: 32)
+                : NSRect(x: bounds.width - 32, y: bounds.height - 32, width: 32, height: 32)
+            addCursorRect(deleteRect, cursor: .pointingHand)
+        }
         
         override func rightMouseDown(with event: NSEvent) {
+            let localPoint = convert(event.locationInWindow, from: nil)
+            if isPointInDeleteArea(localPoint) {
+                return
+            }
             onRightClick?(event, self)
         }
         
         override func mouseDown(with event: NSEvent) {
+            let localPoint = convert(event.locationInWindow, from: nil)
+            if isPointInDeleteArea(localPoint) {
+                onDelete?()
+                return
+            }
             mouseDownEvent = event
             onClick?(event, self)
         }
